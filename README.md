@@ -1,5 +1,5 @@
 
-# Minimal Shell (C++)
+# Minish (C++)
 
 A small Unix-like shell implemented in C++.
 
