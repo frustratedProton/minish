@@ -17,6 +17,7 @@ add_executable(shell
     src/shell_utils.cpp
     src/tokenizer.cpp
     src/command_substitute.cpp
+    src/var_expension.cpp
 )
 
 target_link_libraries(shell PRIVATE readline)

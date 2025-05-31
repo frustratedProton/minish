@@ -1,5 +1,6 @@
 #include "shell.hpp"
 #include "builtin.hpp"
+#include "var_expension.hpp"
 #include "command_substitute.hpp"
 #include "completion.hpp"
 #include "exec_pipes.hpp"
@@ -33,6 +34,9 @@ int start_shell() {
         add_history(cmd.c_str());
 
         cmd = substitute_command(cmd);
+        if (process_variable_assignment(cmd)) // <<< variable assignment
+            continue;
+        cmd = expand_variables(cmd);
         std::vector<std::string> pipeline_parts = split_pipeline(cmd);
 
         if (pipeline_parts.size() >= 2) {
