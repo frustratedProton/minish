@@ -53,8 +53,8 @@ bool handle_builtin(const std::string &input) {
         if (redirect_stdout) {
             fd_out =
                 open(stdout_file.c_str(),
-                     O_CREAT | O_WRONLY | (stdout_append ? O_APPEND :
-                     O_TRUNC), 0644);
+                     O_CREAT | O_WRONLY | (stdout_append ? O_APPEND : O_TRUNC),
+                     0644);
             if (fd_out < 0) {
                 perror("open stdout");
                 return true;
@@ -67,8 +67,8 @@ bool handle_builtin(const std::string &input) {
         if (redirect_stderr) {
             fd_err =
                 open(stderr_file.c_str(),
-                     O_CREAT | O_WRONLY | (stderr_append ? O_APPEND :
-                     O_TRUNC), 0644);
+                     O_CREAT | O_WRONLY | (stderr_append ? O_APPEND : O_TRUNC),
+                     0644);
             if (fd_err < 0) {
                 perror("open stderr");
                 return true;
@@ -105,8 +105,7 @@ bool handle_builtin(const std::string &input) {
 
     if (args[0] == "type" && args.size() == 2) {
         const std::string &arg = args[1];
-        if (arg == "echo" || arg == "exit" || arg == "type" || arg == "pwd"
-        ||
+        if (arg == "echo" || arg == "exit" || arg == "type" || arg == "pwd" ||
             arg == "cd" || arg == "history") {
             std::cout << arg << " is a shell builtin" << std::endl;
         } else {
@@ -143,10 +142,12 @@ bool handle_builtin(const std::string &input) {
     if (args[0] == "history") {
         HIST_ENTRY **the_list = history_list();
 
-        if (!the_list) return true;
+        if (!the_list)
+            return true;
 
         int total = 0;
-        while (the_list[total]) total++;
+        while (the_list[total])
+            total++;
 
         int limit = total;
 
@@ -166,6 +167,17 @@ bool handle_builtin(const std::string &input) {
                       << std::endl;
         }
 
+        return true;
+    }
+
+    if (args[0] == "about") {
+        std::cout << "Minish - A Simple Unix Shell\n"
+                  << "Author: Aryan Kumar Singh\n"
+                  << "Version: 1.0.1\n"
+                  << "Project: minish\n"
+                  << "License: MIT\n"
+                  << "Description: This is a lightweight Unix shell supporting "
+                     "basic built-in commands and redirection.\n";
         return true;
     }
 
